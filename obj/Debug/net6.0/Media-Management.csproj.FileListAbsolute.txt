@@ -1,0 +1,15 @@
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.csproj.AssemblyReference.cache
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.GeneratedMSBuildEditorConfig.editorconfig
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.AssemblyInfoInputs.cache
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.AssemblyInfo.cs
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.csproj.CoreCompileInputs.cache
+E:\5. C#\Media-Management\bin\Debug\net6.0\Media-Management.exe
+E:\5. C#\Media-Management\bin\Debug\net6.0\Media-Management.deps.json
+E:\5. C#\Media-Management\bin\Debug\net6.0\Media-Management.runtimeconfig.json
+E:\5. C#\Media-Management\bin\Debug\net6.0\Media-Management.dll
+E:\5. C#\Media-Management\bin\Debug\net6.0\Media-Management.pdb
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.dll
+E:\5. C#\Media-Management\obj\Debug\net6.0\refint\Media-Management.dll
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.pdb
+E:\5. C#\Media-Management\obj\Debug\net6.0\Media-Management.genruntimeconfig.cache
+E:\5. C#\Media-Management\obj\Debug\net6.0\ref\Media-Management.dll
