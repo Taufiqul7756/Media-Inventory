@@ -96,8 +96,8 @@ class Program
 
         inventory.CDs.AddRange(new List<Media<string>>
         {
-            new CD("C Programming", " Shuvin", 2015),
-            new CD("Basic JavaScript", "Taufiqul Islam", 2022),
+            new CD("CD for C# Programming", " Rasel Ahmed", 2015),
+            new CD("Microsoft Install", "Microsoft", 2022),
             new CD("C# Basic Guidelines ", "Towhidul Islam", 2023),
             new CD("OOP Basic", "Ashraful Islam", 2023),
             new CD("Book 6", "Author 5", 2023),
@@ -174,7 +174,7 @@ class Program
                                             case 3:
                                                 Console.Write("Enter DVD title: ");
                                                 string dvdTitle = Console.ReadLine();
-                                                Console.Write("Enter director: ");
+                                                Console.Write("Enter Director: ");
                                                 string director = Console.ReadLine();
                                                 Console.Write("Enter release year: ");
                                                 if (int.TryParse(Console.ReadLine(), out int dvdReleaseYear))
@@ -200,73 +200,89 @@ class Program
 
                     // Remove media
                     case 2:
-                        Console.WriteLine("Enter the title of the media item you want to remove:");
-                        string titleToRemove = Console.ReadLine();
-                        bool removed = false;
-
-                        removed |= RemoveMediaItem(inventory.Books, titleToRemove);
-                        removed |= RemoveMediaItem(inventory.CDs, titleToRemove);
-                        removed |= RemoveMediaItem(inventory.DVDs, titleToRemove);
-
-                            if (removed)
+                            Console.WriteLine("Enter media type to remove (1. Book, 2. CD, 3. DVD): ");
+                            if (int.TryParse(Console.ReadLine(), out int removeMediaTypeChoice))
                             {
-                                Console.WriteLine($"Media item '{titleToRemove}' removed successfully.");
+                                switch (removeMediaTypeChoice)
+                                {
+                                    case 1:
+                                        RemoveMediaItem(inventory.Books, "Books");
+                                        break;
+                                    case 2:
+                                        RemoveMediaItem(inventory.CDs, "CDs");
+                                        break;
+                                    case 3:
+                                        RemoveMediaItem(inventory.DVDs, "DVDs");
+                                        break;
+                                    default:
+                                        Console.WriteLine("Invalid media type choice.");
+                                        break;
+                                }
                             }
                             else
                             {
-                                Console.WriteLine($"Media item '{titleToRemove}' not found in the inventory.");
+                                Console.WriteLine("Invalid input for media type choice.");
                             }
                             break;
 
-                    // Helper method to remove a media item from a list based on its title
-                    bool RemoveMediaItem<T>(List<Media<T>> items, string title)
-                    {
-                        Media<T> itemToRemove = items.FirstOrDefault(m => m.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
-                        if (itemToRemove != null)
+                        // Helper method to remove media items from a list based on its title
+                        void RemoveMediaItem<T>(List<Media<T>> items, string mediaType)
                         {
-                            items.Remove(itemToRemove);
-                            return true;
+                            Console.WriteLine($"Enter the title of the {mediaType} you want to remove:");
+                            string titleToRemove = Console.ReadLine();
+                            Media<T> itemToRemove = items.FirstOrDefault(m => m.Title.Equals(titleToRemove, StringComparison.OrdinalIgnoreCase));
+                            if (itemToRemove != null)
+                            {
+                                items.Remove(itemToRemove);
+                                Console.WriteLine($"{mediaType} item '{titleToRemove}' removed successfully.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{mediaType} item '{titleToRemove}' not found in the inventory.");
+                            }
                         }
-                        return false;
-                    }
 
                     // Implement Update Media functionality
                     case 3:
                         
-                        Console.WriteLine("Enter the title of the media item you want to update:");
-                        string titleToUpdate = Console.ReadLine();
-
-                        bool updated = UpdateMediaItem(inventory.Books, titleToUpdate);
-                        if (!updated)
+                        Console.WriteLine("Enter media type to update (1. Book, 2. CD, 3. DVD): ");
+                        if (int.TryParse(Console.ReadLine(), out int updateMediaTypeChoice))
                         {
-                            updated = UpdateMediaItem(inventory.CDs, titleToUpdate);
-                        }
-                        if (!updated)
-                        {
-                            updated = UpdateMediaItem(inventory.DVDs, titleToUpdate);
-                        }
-
-                        if (updated)
-                        {
-                            Console.WriteLine($"Media item '{titleToUpdate}' updated successfully.");
+                            switch (updateMediaTypeChoice)
+                            {
+                                case 1:
+                                    UpdateMediaItem(inventory.Books, "Books");
+                                    break;
+                                case 2:
+                                    UpdateMediaItem(inventory.CDs, "CDs");
+                                    break;
+                                case 3:
+                                    UpdateMediaItem(inventory.DVDs, "DVDs");
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid media type choice.");
+                                    break;
+                            }
                         }
                         else
                         {
-                            Console.WriteLine($"Media item '{titleToUpdate}' not found in the inventory.");
+                            Console.WriteLine("Invalid input for media type choice.");
                         }
                         break;
 
-                    // Helper method to update a media item from a list based on its title
-                    bool UpdateMediaItem<T>(List<Media<T>> items, string title)
+                    // Helper method to update media items from a list based on its title
+                    void UpdateMediaItem<T>(List<Media<T>> items, string mediaType)
                     {
-                        Media<T> itemToUpdate = items.FirstOrDefault(m => m.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
+                        Console.WriteLine($"Enter the title of the {mediaType} you want to update:");
+                        string titleToUpdate = Console.ReadLine();
+                        Media<T> itemToUpdate = items.FirstOrDefault(m => m.Title.Equals(titleToUpdate, StringComparison.OrdinalIgnoreCase));
                         if (itemToUpdate != null)
                         {
                             Console.WriteLine("Enter the new information for the media item:");
                             // You can implement logic here to update specific properties of the media item
                             // For example:
-                            // Console.Write("New Title: ");
-                            // itemToUpdate.Title = Console.ReadLine();
+                            Console.Write("New Title: ");
+                            itemToUpdate.Title = Console.ReadLine();
                             // Console.Write("New Release Year: ");
                             // itemToUpdate.ReleaseYear = int.Parse(Console.ReadLine());
                             // ...
@@ -276,16 +292,20 @@ class Program
                             if (int.TryParse(Console.ReadLine(), out int newReleaseYear))
                             {
                                 itemToUpdate.ReleaseYear = newReleaseYear;
-                                return true;
+                                Console.WriteLine($"{mediaType} item '{titleToUpdate}' updated successfully.");
                             }
                             else
                             {
                                 Console.WriteLine("Invalid input for release year. Update failed.");
-                                return false;
                             }
                         }
-                        return false;
+                        else
+                        {
+                            Console.WriteLine($"{mediaType} item '{titleToUpdate}' not found in the inventory.");
+                        }
                     }
+
+                    // Implement Show all the Media Details
                     case 4:
                         Console.WriteLine("All Media Items:");
                         DisplayMediaItems(inventory.Books, "Books");
@@ -299,10 +319,12 @@ class Program
                         Console.WriteLine($"{mediaType}:");
                         foreach (var item in items)
                         {
-                            Console.WriteLine($"Title: {item.Title}, Author: {item.Info}, Release Year: {item.ReleaseYear}");
+                            Console.WriteLine($"Title: {item.Title}, Director: {item.Info}, Release Year: {item.ReleaseYear}");
                         }
                         Console.WriteLine();
                     }
+
+                    //Exit code
                                         case 5:
                                             Environment.Exit(0);
                                             break;
