@@ -89,7 +89,7 @@ class Program
             new Book("Basic JavaScript", "Taufiqul Islam", 2022),
             new Book("C# Basic Guidelines ", "Towhidul Islam", 2023),
             new Book("OOP Basic", "Ashraful Islam", 2023),
-            new Book("Book 5", "Author 5", 2023),
+            new Book("Book 5", "Shahida Jahan", 2023),
             
         });
         // Default CDs Added
@@ -100,7 +100,7 @@ class Program
             new CD("Microsoft Install", "Microsoft", 2022),
             new CD("C# Basic Guidelines ", "Towhidul Islam", 2023),
             new CD("OOP Basic", "Ashraful Islam", 2023),
-            new CD("Book 6", "Author 5", 2023),
+            new CD("Book 6", "Shahida Jahan", 2023),
             
         });
          // Default DVDs Added
@@ -111,7 +111,7 @@ class Program
             new DVD("Basic JavaScript", "Taufiqul Islam", 2022),
             new DVD("C# Basic Guidelines ", "Towhidul Islam", 2023),
             new DVD("OOP Basic", "Ashraful Islam", 2023),
-            new DVD("Book 7", "Author 5", 2023),
+            new DVD("Book 7", "Shahida Jahan", 2023),
             
         });
 
@@ -284,8 +284,13 @@ class Program
                             // For example:
                             Console.Write("New Title: ");
                             itemToUpdate.Title = Console.ReadLine();
-                            // Console.Write("New Release Year: ");
-                            // itemToUpdate.ReleaseYear = int.Parse(Console.ReadLine());
+
+                            string infoType = GetInfoType(mediaType);
+                            Console.Write($"{itemToUpdate.Info} is a Existing {infoType} | If you want to change ,Please add new {mediaType}'s {infoType} : ");
+                            string newInfo = Console.ReadLine();
+                            // itemToUpdate.Info = newInfo;
+                            // Update the Info property with the new input
+                            // itemToUpdate.Info = newInfo;
                             // ...
 
                             // For simplicity, let's assume you update only the release year in this example
@@ -305,6 +310,21 @@ class Program
                             Console.WriteLine($"{mediaType} item '{titleToUpdate}' not found in the inventory.");
                         }
                     }
+
+                    string GetInfoType(string mediaType)
+                        {
+                            switch (mediaType)
+                            {
+                                case "Books":
+                                    return "Author";
+                                case "CDs":
+                                    return "Artist";
+                                case "DVDs":
+                                    return "Director";
+                                default:
+                                    return "Info";
+                            }
+                        }
 
                     // Implement Show all the Media Details
                     case 4:
