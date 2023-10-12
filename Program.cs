@@ -135,68 +135,69 @@ class Program
                 {
                     case 1:
                         Console.WriteLine("Enter media type (1. Book, 2. CD, 3. DVD): ");
-    if (int.TryParse(Console.ReadLine(), out int mediaTypeChoice))
-    {
-        switch (mediaTypeChoice)
-        {
+                        if (int.TryParse(Console.ReadLine(), out int mediaTypeChoice))
+                        {
+                            switch (mediaTypeChoice)
+                            {
                                 case 1:
                                     Console.Write("Enter book title: ");
                                     string bookTitle = Console.ReadLine();
                                     Console.Write("Enter author: ");
                                     string author = Console.ReadLine();
                                     Console.Write("Enter release year: ");
-                                    if (int.TryParse(Console.ReadLine(), out int releaseYear))
+                                        if (int.TryParse(Console.ReadLine(), out int releaseYear))
+                                        {
+                                            inventory.AddMedia(inventory.Books, new Book(bookTitle, author, releaseYear));
+                                            Console.WriteLine("Book added successfully.");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Invalid release year. Please enter a valid number.");
+                                        }
+                                         break;
+                                case 2:
+                                    Console.Write("Enter CD title: ");
+                                    string cdTitle = Console.ReadLine();
+                                    Console.Write("Enter artist: ");
+                                    string artist = Console.ReadLine();
+                                    Console.Write("Enter release year: ");
+                                        if (int.TryParse(Console.ReadLine(), out int cdReleaseYear))
+                                        {
+                                            inventory.AddMedia(inventory.CDs, new CD(cdTitle, artist, cdReleaseYear));
+                                            Console.WriteLine("CD added successfully.");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Invalid release year. Please enter a valid number.");
+                                        }
+                                        break;
+                                case 3:
+                                    Console.Write("Enter DVD title: ");
+                                    string dvdTitle = Console.ReadLine();
+                                    Console.Write("Enter Director: ");
+                                    string director = Console.ReadLine();
+                                    Console.Write("Enter release year: ");
+                                    if (int.TryParse(Console.ReadLine(), out int dvdReleaseYear))
                                     {
-                                        inventory.AddMedia(inventory.Books, new Book(bookTitle, author, releaseYear));
-                                        Console.WriteLine("Book added successfully.");
+                                        inventory.AddMedia(inventory.DVDs, new DVD(dvdTitle, director, dvdReleaseYear));
+                                        Console.WriteLine("DVD added successfully.");
                                     }
                                     else
                                     {
                                         Console.WriteLine("Invalid release year. Please enter a valid number.");
                                     }
                                     break;
-                                            case 2:
-                                                Console.Write("Enter CD title: ");
-                                                string cdTitle = Console.ReadLine();
-                                                Console.Write("Enter artist: ");
-                                                string artist = Console.ReadLine();
-                                                Console.Write("Enter release year: ");
-                                                if (int.TryParse(Console.ReadLine(), out int cdReleaseYear))
-                                                {
-                                                    inventory.AddMedia(inventory.CDs, new CD(cdTitle, artist, cdReleaseYear));
-                                                    Console.WriteLine("CD added successfully.");
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("Invalid release year. Please enter a valid number.");
-                                                }
-                                                break;
-                                            case 3:
-                                                Console.Write("Enter DVD title: ");
-                                                string dvdTitle = Console.ReadLine();
-                                                Console.Write("Enter Director: ");
-                                                string director = Console.ReadLine();
-                                                Console.Write("Enter release year: ");
-                                                if (int.TryParse(Console.ReadLine(), out int dvdReleaseYear))
-                                                {
-                                                    inventory.AddMedia(inventory.DVDs, new DVD(dvdTitle, director, dvdReleaseYear));
-                                                    Console.WriteLine("DVD added successfully.");
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("Invalid release year. Please enter a valid number.");
-                                                }
-                                                break;
-                                            default:
-                                                Console.WriteLine("Invalid media type choice.");
-                                                break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Invalid input. Please enter a number.");
-                                    }
-                                    break;
+
+                                    default:
+                                        Console.WriteLine("Invalid media type choice.");
+                                        break;
+                            }
+                        }
+                                else
+                                {
+                                Console.WriteLine("Invalid input. Please enter a number.");
+                                }
+                            break;
 
                     // Remove media
                     case 2:
@@ -319,20 +320,39 @@ class Program
                         Console.WriteLine($"{mediaType}:");
                         foreach (var item in items)
                         {
-                            Console.WriteLine($"Title: {item.Title}, Director: {item.Info}, Release Year: {item.ReleaseYear}");
+                            // Console.WriteLine($"Title: {item.Title}, Director: {item.Info}, Release Year: {item.ReleaseYear}");
+                            string propertyValue;
+                            if (mediaType == "Books")
+                            {
+                                propertyValue = ((Book)(object)item).Info; // Cast to Book and access Author property
+                            }
+                            else if (mediaType == "CDs")
+                            {
+                                propertyValue = ((CD)(object)item).Info; // Cast to CD and access Artist property
+                            }
+                            else if (mediaType == "DVDs")
+                            {
+                                propertyValue = ((DVD)(object)item).Info; // Cast to DVD and access Director property
+                            }
+                            else
+                            {
+                                propertyValue = "N/A";
+                            }
+                             string propertyType = mediaType == "Books" ? "Author" : mediaType == "CDs" ? "Artist" : "Director";
+                            Console.WriteLine($"Title: {item.Title}, {propertyType}: {propertyValue}, Release Year: {item.ReleaseYear}");
                         }
                         Console.WriteLine();
                     }
 
                     //Exit code
-                                        case 5:
-                                            Environment.Exit(0);
-                                            break;
-                                        default:
-                                            Console.WriteLine("Invalid option. Please try again.");
-                                            break;
-                                    }
-                                }
+                    case 5:
+                        Environment.Exit(0);
+                            break;
+                                    default:
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                    break;
+                            }
+                        }
             else
             {
                 Console.WriteLine("Invalid input. Please enter a number.");
